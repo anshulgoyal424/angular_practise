@@ -12,8 +12,8 @@ export class ReactiveComponent {
     form = new FormGroup({
         username : new FormControl('', [Validators.required,
         Validators.minLength(3),
-        UsernameValidators.cannotContainSpace,
-        UsernameValidators.shouldBeUnique]),
+        UsernameValidators.cannotContainSpace],
+        UsernameValidators.shouldBeUnique),
         password : new FormControl('', Validators.required)
     });
 
