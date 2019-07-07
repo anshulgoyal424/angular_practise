@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { UsernameValidators } from './username.validators';
 
 @Component({
@@ -9,17 +9,28 @@ import { UsernameValidators } from './username.validators';
 
 export class ReactiveComponent {
 
-    form = new FormGroup({
-        account : new FormGroup({
-        username : new FormControl('', [Validators.required,
-        Validators.minLength(3),
-        UsernameValidators.cannotContainSpace],
-        UsernameValidators.shouldBeUnique),
-        password : new FormControl('', Validators.required)
-    }),
-    topics: new FormArray([])
+    form ;
+    //  new FormGroup({
+    //     account : new FormGroup({
+    //     username : new FormControl('', [Validators.required,
+    //     Validators.minLength(3),
+    //     UsernameValidators.cannotContainSpace],
+    //     UsernameValidators.shouldBeUnique),
+    //     password : new FormControl('', Validators.required)
+    // }),
+    // topics: new FormArray([])
 
-    });
+    // });
+
+    constructor(fb:FormBuilder){
+        this.form = fb.group({
+            account: fb.group({
+                username : ['', [Validators.required, Validators.minLength(3),UsernameValidators.cannotContainSpace],UsernameValidators.shouldBeUnique],
+                password: ['' , Validators.required]
+            }),
+            topics: fb.array([])
+        })
+    }
 
     get username(){
         return this.form.get('account.username');
